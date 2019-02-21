@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+</head>
+<body>
+  <div>
+    <input id="comma_test" type="number" />
+  </div>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script>
+$(document).ready(() => {
+  $("#comma_test").on("blur", (e) => {
+    console.log("blur")
+    const target = e.target
+    target.type = 'text'  // 数値以外が入るように、先に型を変える
+    target.value += ','  // サンプルなのでとりあえずカンマ付けるだけ。本当は桁区切りでカンマをつける
+  })
+
+  $("#comma_test").on("focus", (e) => {
+    console.log("focus")
+    const target = e.target
+    const number = Number(target.value.replace(/,/, ''))
+    if (number) {  // 数値にできない場合にフィールドに0が表示されるのを避ける
+      target.value = number
+    }
+    target.type = 'number'  // 変換前は数値以外が入っているので、後で型を変える
+  })
+})
+</script>
+</body>
+</html>
